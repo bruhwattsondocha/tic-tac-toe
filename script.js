@@ -1,6 +1,6 @@
 'use strict';
 
-const createGameboard = (() => {
+const createGameboard = () => {
   const gameboard = [];
   for (let i = 0; i < 3; i++) {
     gameboard.push([])
@@ -9,7 +9,7 @@ const createGameboard = (() => {
     }
   }
   return gameboard;
-})();
+};
 
 const createPlayer = (name, marker) => {
   let isTheirTurn;
