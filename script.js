@@ -10,3 +10,11 @@ const createGameboard = (() => {
   }
   return gameboard;
 })();
+
+const createPlayer = (name, marker) => {
+  let isTheirTurn;
+  const getName = () => name;
+  const getMarker = () => marker;
+  return { getName, getMarker, isTheirTurn };
+}
+
