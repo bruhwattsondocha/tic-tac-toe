@@ -38,8 +38,10 @@ const gameController = () => {
     players.push(playerOne);
     players.push(playerTwo);
   })();
-}
-const getTurn = (players) => {
-  const random = getRandom();
 
-}
+  const getTurn = (() => {
+    const random = getRandom();
+    players[0].isTheirTurn = !!random;
+    players[1].isTheirTurn = !random;
+  })(); 
+
