@@ -44,4 +44,4 @@ const gameController = () => {
     players[0].isTheirTurn = !!random;
     players[1].isTheirTurn = !random;
   })(); 
-
+}
