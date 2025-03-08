@@ -18,3 +18,28 @@ const createPlayer = (name, marker) => {
   return { getName, getMarker, isTheirTurn };
 }
 
+const gameController = () => {
+  const gameBoard = createGameboard();
+  const getRandom = () => {
+    return Math.floor(Math.random() * 2);
+  }
+  let players = [];
+
+  const initPlayers = (() => {
+    let playerOneName = prompt('Enter your name') || 'Player One';
+    let playerTwoName = prompt('Enter your name') || 'Player Two';
+
+    const random = getRandom();
+    let playerOneMarker = random === 0 ? 'X' : 'O';
+    let playerTwoMarker = playerOneMarker === 'X' ? 'O' : 'X';
+    
+    const playerOne = createPlayer(playerOneName, playerOneMarker);
+    const playerTwo = createPlayer(playerTwoName, playerTwoMarker);
+    players.push(playerOne);
+    players.push(playerTwo);
+  })();
+}
+const getTurn = (players) => {
+  const random = getRandom();
+
+}
