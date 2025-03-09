@@ -57,9 +57,10 @@ const gameController = () => {
     }
   };
   
-  const scanGameboardForWinCombo = (gameboard) => {
+  const scanAndGetWinner = (gameboard) => {
     const rows = gameboard.length;
     const cols = gameboard[0].length;
+    let winnersMarker; 
     const areSameMarkers = (arr) => {
       const set =  new Set(arr);
       if (set.has('')) return false;
@@ -72,7 +73,7 @@ const gameController = () => {
       for (let j = 0; j < cols; j++) {
         row.push(gameboard[i][j]);
       }
-      if (areSameMarkers(row)) return `Horizontal winner marker`
+      if (areSameMarkers(row)) winnersMarker = row[0]; 
       row.length = 0;
     }
 
@@ -82,7 +83,7 @@ const gameController = () => {
       for (let j = 0; j < cols; j++) {
         col.push(gameboard[j][i]);
       }
-      if (areSameMarkers(col)) return `Vertical winner marker`
+      if (areSameMarkers(col)) winnersMarker = col[0];
       col.length = 0;
     }
 
@@ -91,7 +92,7 @@ const gameController = () => {
     for (let i = 0; i < rows; i++) {
         diag.push(gameboard[i][i])
       }
-    if (areSameMarkers(diag)) return `Diagonal winner marker`
+    if (areSameMarkers(diag)) winnersMarker = diag[0];
     diag.length = 0;
 
     // Check anti-diagonal
@@ -99,10 +100,13 @@ const gameController = () => {
     for (let i = 0; i < rows; i++) {
         diag.push(gameboard[i][(rows - 1) - i]);
     }
-    if (areSameMarkers(antiDiag)) return `Anti-diagonal winner marker`
-    antiDiag.length = 0;
-    
-    // Loop through players to find one with corresponding marker and make him win
-    const winner = 0 // getWinner by comparing its marker to players marker
+    if (areSameMarkers(antiDiag)) winnersMarker = antiDiag[0];
+    antiDiag.length = 0   
+
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].getMarker === winnersMarker) {
+        return players[i];
+      }
+    }
   }
 }
