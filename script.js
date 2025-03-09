@@ -56,4 +56,53 @@ const gameController = () => {
       return `Pick another cell!`;
     }
   };
- } 
+  
+  const scanGameboardForWinCombo = (gameboard) => {
+    const rows = gameboard.length;
+    const cols = gameboard[0].length;
+    const areSameMarkers = (arr) => {
+      const set =  new Set(arr);
+      if (set.has('')) return false;
+      if (set.size === 1) return true;
+    };
+
+    // Check horizontal (rows)
+    const row = [];
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        row.push(gameboard[i][j]);
+      }
+      if (areSameMarkers(row)) return `Horizontal winner marker`
+      row.length = 0;
+    }
+
+    // Check vertical (cols)
+    const col = [];
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        col.push(gameboard[j][i]);
+      }
+      if (areSameMarkers(col)) return `Vertical winner marker`
+      col.length = 0;
+    }
+
+    // Check diagonal 
+    const diag = [];
+    for (let i = 0; i < rows; i++) {
+        diag.push(gameboard[i][i])
+      }
+    if (areSameMarkers(diag)) return `Diagonal winner marker`
+    diag.length = 0;
+
+    // Check anti-diagonal
+    const antiDiag = [];
+    for (let i = 0; i < rows; i++) {
+        diag.push(gameboard[i][(rows - 1) - i]);
+    }
+    if (areSameMarkers(antiDiag)) return `Anti-diagonal winner marker`
+    antiDiag.length = 0;
+    
+    // Loop through players to find one with corresponding marker and make him win
+    const winner = 0 // getWinner by comparing its marker to players marker
+  }
+}
