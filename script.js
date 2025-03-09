@@ -47,9 +47,6 @@ const gameController = () => {
   })(); 
 
   const makeTurn = (player, row, col) => {
-    if (row < 1 || row > 3) return `Impossible row`;
-    if (col < 1 || col > 3) return `Impossible column`;
-
     if (!gameboard[row - 1][col - 1]) {
       gameboard[row - 1][col - 1] = player.getMarker();
     } else {
@@ -57,6 +54,22 @@ const gameController = () => {
     }
   };
   
+  const makeTurnWithPlayerInput = () => {
+    const row = prompt('Which row?');
+    const col = prompt('Which col?');
+    if (row < 1 || row > 3) return `Impossible row`;
+    if (col < 1 || col > 3) return `Impossible column`;
+
+    let currentPlayer;
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].isTheirTurn === true) {
+        currentPlayer = players[i];
+        break;
+      }
+    }
+
+    makeTurn(player, row, column);
+  }
   const scanAndGetWinner = (gameboard) => {
     const rows = gameboard.length;
     const cols = gameboard[0].length;
