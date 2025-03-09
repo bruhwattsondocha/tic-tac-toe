@@ -68,7 +68,7 @@ const gameController = () => {
       }
     }
 
-    makeTurn(player, row, column);
+    makeTurn(currentPlayer, row, column);
   }
   const scanAndGetWinner = (gameboard) => {
     const rows = gameboard.length;
