@@ -19,7 +19,8 @@ const createPlayer = (name, marker) => {
 }
 
 const gameController = () => {
-  const gameBoard = createGameboard();
+  const gameboard = createGameboard();
+  const showGameboard = console.log(gameboard);
   const getRandom = () => {
     return Math.floor(Math.random() * 2);
   }
@@ -44,4 +45,15 @@ const gameController = () => {
     players[0].isTheirTurn = !!random;
     players[1].isTheirTurn = !random;
   })(); 
-}
+
+  const makeTurn = (player, row, col) => {
+    if (row < 1 || row > 3) return `Impossible row`;
+    if (col < 1 || col > 3) return `Impossible column`;
+
+    if (!gameboard[row - 1][col - 1]) {
+      gameboard[row - 1][col - 1] = player.getMarker();
+    } else {
+      return `Pick another cell!`;
+    }
+  };
+ } 
