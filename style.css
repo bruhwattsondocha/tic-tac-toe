@@ -37,3 +37,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* RESET */
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1F1F1F;
+  height: 100vh;
+  width: 100vw;
+
+  padding: 2rem;
+  border: 2px solid green;
+  gap: 2rem;
+}
+
+.menu,
+.display {
+  border: 2px solid red;
+  border-radius: 12px;
+  width: clamp(500px, 80%, 1200px);
+
+  /* width: clamp(30%, 500px, 90%); */
+  height: 100%;
+  padding: 2rem;
+}
+
+.menu {
+  flex: 1;
+}
+
+.display {
+  flex: 5;
+}
