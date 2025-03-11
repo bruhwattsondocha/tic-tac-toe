@@ -64,16 +64,13 @@ const gameController = () => {
     }
   }
 
-  const makeTurnWithPlayerInput = () => {
-    let currentPlayer = players[0].isTheirTurn === true ? players[0] : players[1];
-
-    const row = prompt(`${currentPlayer.getName()} which row?`);
-    const col = prompt(`${currentPlayer.getName()} which column?`);
-    if (row < 1 || row > 3) return `Impossible row`;
-    if (col < 1 || col > 3) return `Impossible column`;
-
-
-    makeTurn(currentPlayer, row, col);
+  const getUserInput = () => {
+    const testRegex = /[1-3], [1-3]/g;
+    let rowAndCol;
+    do {
+      rowAndCol = prompt('Enter row and column: "row, col"');
+    } while (!testRegex.test(rowAndCol));
+    return rowAndCol.split(', ');
   }
 
   const scanAndGetWinner = () => {
