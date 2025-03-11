@@ -17,11 +17,11 @@ const createPlayer = (name, marker) => {
 }
 
 const gameController = () => {
-  const gameboard = createGameboard();
+  let gameboard = createGameboard();
   const showGameboard = () => console.table(gameboard);
   const getRandom = () => {
     return Math.floor(Math.random() * 2);
-  }
+  };
   let players = [];
 
   const initPlayers = (() => {
@@ -168,6 +168,11 @@ const gameController = () => {
       }
     }
   }
+
+  const restartGame = () => {
+    gameboard = createGameboard();
+    players = [];
+  }
   
   const playGame = () => {
     initPlayers();
@@ -177,14 +182,23 @@ const gameController = () => {
       const oppositePlayer = getOppositePlayer();
       const currentPlayerInput = getUserInput(currentPlayer, oppositePlayer);
       if (currentPlayerInput === `Cancel`) {
+        restartGame();
         return `Game is cancelled`;
       }
       const [row, col] = [...currentPlayerInput];
       makeTurn(currentPlayer, row, col);
       showGameboard();
       const isGameOver = scanAndGetWinner();
-      if (isGameOver) return `${isGameOver.name} wins!`;
-      if (turns === 8) return `Draw!`;
+
+      if (isGameOver) {
+        restartGame();
+        return `${isGameOver.name} wins!`;
+      }
+      if (turns === 8) {
+        restartGame();
+        return `Draw!`;
+      }
+
       changeTurns();
     }
   }
