@@ -183,10 +183,8 @@ const gameController = () => {
       makeTurn(currentPlayer, row, col);
       showGameboard();
       const isGameOver = scanAndGetWinner();
-      if (isGameOver) {
-        return `${isGameOver.name} wins!`;
-      }
-
+      if (isGameOver) return `${isGameOver.name} wins!`;
+      if (turns === 8) return `Draw!`;
       changeTurns();
     }
   }
