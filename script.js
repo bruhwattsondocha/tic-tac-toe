@@ -86,7 +86,9 @@ const gameController = () => {
       for (let j = 0; j < cols; j++) {
         row.push(gameboard[i][j]);
       }
-      if (areSameMarkers(row)) winnersMarker = row[0]; 
+      if (areSameMarkers(row)) {
+        winnersMarker = row[0]; 
+      }
       row.length = 0;
     }
 
@@ -96,7 +98,9 @@ const gameController = () => {
       for (let j = 0; j < cols; j++) {
         col.push(gameboard[j][i]);
       }
-      if (areSameMarkers(col)) winnersMarker = col[0];
+      if (areSameMarkers(col)) {
+        winnersMarker = col[0];
+      }
       col.length = 0;
     }
 
@@ -105,7 +109,9 @@ const gameController = () => {
     for (let i = 0; i < rows; i++) {
         diag.push(gameboard[i][i])
       }
-    if (areSameMarkers(diag)) winnersMarker = diag[0];
+    if (areSameMarkers(diag)) {
+      winnersMarker = diag[0];
+    }
     diag.length = 0;
 
     // Check anti-diagonal
@@ -113,9 +119,12 @@ const gameController = () => {
     for (let i = 0; i < rows; i++) {
         diag.push(gameboard[i][(rows - 1) - i]);
     }
-    if (areSameMarkers(antiDiag)) winnersMarker = antiDiag[0];
+    if (areSameMarkers(antiDiag)) {
+      winnersMarker = antiDiag[0];
+    }
     antiDiag.length = 0   
 
+    // Loop through players and return winning player
     for (let i = 0; i < players.length; i++) {
       if (players[i].getMarker === winnersMarker) {
         return players[i];
