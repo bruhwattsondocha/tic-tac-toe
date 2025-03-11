@@ -13,9 +13,7 @@ const createGameboard = () => {
 
 const createPlayer = (name, marker) => {
   let isTheirTurn;
-  const getName = () => name;
-  const getMarker = () => marker;
-  return { getName, getMarker, isTheirTurn };
+  return { name, marker, isTheirTurn };
 }
 
 const gameController = () => {
@@ -47,7 +45,7 @@ const gameController = () => {
   }); 
 
   const makeTurn = (player, row, col) => {
-    gameboard[row - 1][col - 1] = player.getMarker();
+    gameboard[row - 1][col - 1] = player.marker;
   };
   
   const changeTurns = () => {
@@ -74,7 +72,7 @@ const gameController = () => {
     let row;
     let col;
     const getPosition = () => {
-      rowAndCol = prompt(`${currentPlayer.getName()}, enter row and column from 1 to 3: "row, col" for '${currentPlayer.getMarker()}'`);
+      rowAndCol = prompt(`${currentPlayer.name}, enter row and column from 1 to 3: "row, col" for '${currentPlayer.name}'`);
       [row, col] = [...rowAndCol.split(', ')];
     };
 
@@ -86,12 +84,12 @@ const gameController = () => {
         continue;
       } 
 
-      if (gameboard[row - 1][col - 1] === oppositePlayer.getMarker()) { // If there is opposite players marker in row col
+      if (gameboard[row - 1][col - 1] === oppositePlayer.marker) { // If there is opposite players marker in row col
         alert('There is enemies marker already!');
         continue;
       } 
 
-      if (gameboard[row - 1][col - 1] === currentPlayer.getMarker()) {// If there is your marker already in row col
+      if (gameboard[row - 1][col - 1] === currentPlayer.marker) {// If there is your marker already in row col
         alert('There is your marker already!');
         continue;
       }
@@ -158,7 +156,7 @@ const gameController = () => {
 
     // Loop through players and return winning player
     for (let i = 0; i < players.length; i++) {
-      if (players[i].getMarker() === winnersMarker) {
+      if (players[i].marker === winnersMarker) {
         return players[i];
       }
     }
@@ -176,7 +174,7 @@ const gameController = () => {
       showGameboard();
       const isGameOver = scanAndGetWinner();
       if (isGameOver) {
-        return `${isGameOver.getName()} wins!`;
+        return `${isGameOver.name} wins!`;
       }
 
       changeTurns();
