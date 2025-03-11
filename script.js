@@ -68,9 +68,9 @@ const gameController = () => {
       }
     }
 
-    makeTurn(currentPlayer, row, column);
+    makeTurn(currentPlayer, row, col);
   }
-  const scanAndGetWinner = (gameboard) => {
+  const scanAndGetWinner = () => {
     const rows = gameboard.length;
     const cols = gameboard[0].length;
     let winnersMarker; 
