@@ -20,7 +20,7 @@ const createPlayer = (name, marker) => {
 
 const gameController = () => {
   const gameboard = createGameboard();
-  const showGameboard = console.log(gameboard);
+  const showGameboard = () => console.table(gameboard);
   const getRandom = () => {
     return Math.floor(Math.random() * 2);
   }
@@ -38,20 +38,16 @@ const gameController = () => {
     const playerTwo = createPlayer(playerTwoName, playerTwoMarker);
     players.push(playerOne);
     players.push(playerTwo);
-  })();
+  });
 
   const getTurn = (() => {
     const random = getRandom();
     players[0].isTheirTurn = !!random;
     players[1].isTheirTurn = !random;
-  })(); 
+  }); 
 
   const makeTurn = (player, row, col) => {
-    if (!gameboard[row - 1][col - 1]) {
-      gameboard[row - 1][col - 1] = player.getMarker();
-    } else {
-      return `Pick another cell!`;
-    }
+    gameboard[row - 1][col - 1] = player.getMarker();
   };
   
   const changeTurns = () => {
@@ -66,14 +62,43 @@ const gameController = () => {
 
   const getCurrentPlayer = () => {
     const currentPlayer = players[0].isTheirTurn === true ? players[0] : players[1];
+    return currentPlayer;
   }
-
-  const getUserInput = () => {
-    const testRegex = /[1-3], [1-3]/g;
+  const getOppositePlayer = () => {
+    const oppositePlayer = players[0].isTheirTurn === false ? players[0] : players[1] 
+    return oppositePlayer;
+  }
+  const getUserInput = (currentPlayer, oppositePlayer) => {
+    const testRegex = /^[1-3], [1-3]$/;
     let rowAndCol;
-    do {
-      rowAndCol = prompt('Enter row and column: "row, col"');
-    } while (!testRegex.test(rowAndCol));
+    let row;
+    let col;
+    const getPosition = () => {
+      rowAndCol = prompt(`${currentPlayer.getName()}, enter row and column from 1 to 3: "row, col" for '${currentPlayer.getMarker()}'`);
+      [row, col] = [...rowAndCol.split(', ')];
+    };
+
+    while (true) {
+      getPosition();
+
+      if (!testRegex.test(rowAndCol)) { // Regex is not correct
+        alert('Wrong input!');
+        continue;
+      } 
+
+      if (gameboard[row - 1][col - 1] === oppositePlayer.getMarker()) { // If there is opposite players marker in row col
+        alert('There is enemies marker already!');
+        continue;
+      } 
+
+      if (gameboard[row - 1][col - 1] === currentPlayer.getMarker()) {// If there is your marker already in row col
+        alert('There is your marker already!');
+        continue;
+      }
+
+      break;
+    }
+    
     return rowAndCol.split(', ');
   }
 
@@ -133,9 +158,29 @@ const gameController = () => {
 
     // Loop through players and return winning player
     for (let i = 0; i < players.length; i++) {
-      if (players[i].getMarker === winnersMarker) {
+      if (players[i].getMarker() === winnersMarker) {
         return players[i];
       }
     }
   }
+  
+  const playGame = () => {
+    initPlayers();
+    getTurn();
+    for (let turns = 0; turns < 9; turns++) {
+      const currentPlayer = getCurrentPlayer();
+      const oppositePlayer = getOppositePlayer();
+      const currentPlayerInput = getUserInput(currentPlayer, oppositePlayer);
+      const [row, col] = [...currentPlayerInput];
+      makeTurn(currentPlayer, row, col);
+      showGameboard();
+      const isGameOver = scanAndGetWinner();
+      if (isGameOver) {
+        return `${isGameOver.getName()} wins!`;
+      }
+
+      changeTurns();
+    }
+  }
+  return { playGame };
 }
