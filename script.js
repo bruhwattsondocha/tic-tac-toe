@@ -27,8 +27,8 @@ const gameController = () => {
   let players = [];
 
   const initPlayers = (() => {
-    let playerOneName = prompt('Enter your name') || 'Player One';
-    let playerTwoName = prompt('Enter your name') || 'Player Two';
+    let playerOneName = prompt('Player one, enter your name') || 'Player One';
+    let playerTwoName = prompt('Player two, enter your name') || 'Player Two';
 
     const random = getRandom();
     let playerOneMarker = random === 0 ? 'X' : 'O';
@@ -54,22 +54,28 @@ const gameController = () => {
     }
   };
   
+  const changeTurns = () => {
+    if (players[0].isTheirTurn === true) {
+      players[0].isTheirTurn = false;
+      players[1].isTheirTurn = true;
+    } else if (players[1].isTheirTurn === true) {
+      players[0].isTheirTurn = true;
+      players[1].isTheirTurn = false;
+    }
+  }
+
   const makeTurnWithPlayerInput = () => {
-    const row = prompt('Which row?');
-    const col = prompt('Which col?');
+    let currentPlayer = players[0].isTheirTurn === true ? players[0] : players[1];
+
+    const row = prompt(`${currentPlayer.getName()} which row?`);
+    const col = prompt(`${currentPlayer.getName()} which column?`);
     if (row < 1 || row > 3) return `Impossible row`;
     if (col < 1 || col > 3) return `Impossible column`;
 
-    let currentPlayer;
-    for (let i = 0; i < players.length; i++) {
-      if (players[i].isTheirTurn === true) {
-        currentPlayer = players[i];
-        break;
-      }
-    }
 
     makeTurn(currentPlayer, row, col);
   }
+
   const scanAndGetWinner = () => {
     const rows = gameboard.length;
     const cols = gameboard[0].length;
