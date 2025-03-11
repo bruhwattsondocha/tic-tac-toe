@@ -73,11 +73,18 @@ const gameController = () => {
     let col;
     const getPosition = () => {
       rowAndCol = prompt(`${currentPlayer.name}, enter row and column from 1 to 3: "row, col" for '${currentPlayer.name}'`);
-      [row, col] = [...rowAndCol.split(', ')];
+      if (rowAndCol) [row, col] = [...rowAndCol.split(', ')];
     };
 
     while (true) {
       getPosition();
+
+      if (!rowAndCol) {
+        const cancelConfirm = confirm('You want to cancel the game?');
+        if (cancelConfirm) {
+          return `Cancel`;
+        } continue;
+      }
 
       if (!testRegex.test(rowAndCol)) { // Regex is not correct
         alert('Wrong input!');
@@ -169,6 +176,9 @@ const gameController = () => {
       const currentPlayer = getCurrentPlayer();
       const oppositePlayer = getOppositePlayer();
       const currentPlayerInput = getUserInput(currentPlayer, oppositePlayer);
+      if (currentPlayerInput === `Cancel`) {
+        return `Game is cancelled`;
+      }
       const [row, col] = [...currentPlayerInput];
       makeTurn(currentPlayer, row, col);
       showGameboard();
