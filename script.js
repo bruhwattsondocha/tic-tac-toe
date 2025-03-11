@@ -72,7 +72,7 @@ const gameController = () => {
     let row;
     let col;
     const getPosition = () => {
-      rowAndCol = prompt(`${currentPlayer.name}, enter row and column from 1 to 3: "row, col" for '${currentPlayer.name}'`);
+      rowAndCol = prompt(`${currentPlayer.name}, enter row and column from 1 to 3: "row, col" for '${currentPlayer.marker}'`);
       if (rowAndCol) [row, col] = [...rowAndCol.split(', ')];
     };
 
