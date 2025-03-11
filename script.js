@@ -64,6 +64,10 @@ const gameController = () => {
     }
   }
 
+  const getCurrentPlayer = () => {
+    const currentPlayer = players[0].isTheirTurn === true ? players[0] : players[1];
+  }
+
   const getUserInput = () => {
     const testRegex = /[1-3], [1-3]/g;
     let rowAndCol;
