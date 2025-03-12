@@ -202,5 +202,5 @@ const gameController = () => {
       changeTurns();
     }
   }
-  return { playGame };
+  return { playGame, restartGame };
 }
