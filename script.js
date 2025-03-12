@@ -289,3 +289,13 @@ const displayController = (() => {
   }  
   return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer, updateStartButton };
 })();
+
+const clickHandler = (() => {
+  const startGame = (() => {
+    const startButton = document.querySelector('.button');
+    if (startButton.innerText === 'Start') {
+      startButton.addEventListener('click', gameController.playGame);
+    }
+  })();
+  
+})();
