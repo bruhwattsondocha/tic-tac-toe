@@ -47,7 +47,7 @@ body {
   height: 100vh;
   width: 100vw;
 
-  padding: 4rem;
+  padding: 2rem;
   gap: 1rem;
 }
 
@@ -70,7 +70,7 @@ body {
 
 .menu {
   display: flex;
-  align-items: last baseline;
+  align-items: center;
   gap: 2rem;
   color: #D3D3D3;
   border-bottom: 3px solid #D3D3D3;
@@ -79,12 +79,16 @@ body {
 .menu .button,
 .menu .current-player {
   border: 2px solid #D3D3D3;
-  padding: 0.6rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 12px;
-  font-size: 18px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-
+.menu .button {
+  width: 80px;
+  text-align: center;
+}
 
 /* DISPLAY */
 
