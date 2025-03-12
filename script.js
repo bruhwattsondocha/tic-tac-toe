@@ -221,7 +221,6 @@ const gameController = (() => {
   const playGameGui = (clickedCell) => {
     const currentPlayer = getCurrentPlayer();
     const oppositePlayer = getOppositePlayer();
-    displayController.showCurrentPlayer();
 
     const [row, col] = [...clickedCell];
     makeTurn(currentPlayer, row, col);
@@ -241,6 +240,7 @@ const gameController = (() => {
     }
 
     changeTurns();
+    displayController.showCurrentPlayer();
   }
   return { playGame, restartGame, getGameboard, getCurrentPlayer, initGameGui, playGameGui };
 })();
