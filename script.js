@@ -233,13 +233,13 @@ const gameController = (() => {
     turns++;
     if (isGameOver) {
       restartGame();
-      alert(`${isGameOver.name} wins!`);
-      displayController.highlightWinner(isGameOver.marker);
+      displayController.printWinner(isGameOver);
+      displayController.highlightWinner(isGameOver);
       return;
     }
     if (turns === 8) {
       restartGame();
-      alert(`Draw!`);
+      displayController.printWinner('Draw!');
       return;
     }
 
@@ -358,6 +358,11 @@ const displayController = (() => {
     });
   };
 
+  const printWinner = (winner) => {
+    const currentPlayer = document.querySelector('.current-player');
+    currentPlayer.innerText = `${winner.name} is won!`;
+  }
+
   return { 
     fillDisplay,
     clearDisplay,
@@ -369,6 +374,7 @@ const displayController = (() => {
     resetCellsColor, 
     allowOnHover,
     prohibitOnHover,
+    printWinner,
   };
 })();
 
