@@ -174,9 +174,9 @@ const gameController = (() => {
   }
 
   const restartGame = () => {
+    displayController.refreshDisplay();
     gameboard = createGameboard();
     players = [];
-    displayController.refreshDisplay();
     turns = 0;
   }
   
