@@ -16,7 +16,7 @@ const createPlayer = (name, marker) => {
   return { name, marker, isTheirTurn };
 }
 
-const gameController = () => {
+const gameController = (() => {
   let gameboard = createGameboard();
   const showGameboard = () => console.table(gameboard);
   const getRandom = () => {
@@ -192,6 +192,7 @@ const gameController = () => {
       const [row, col] = [...currentPlayerInput];
       makeTurn(currentPlayer, row, col);
       showGameboard();
+      displayController.fillDisplay();
       const isGameOver = scanAndGetWinner();
 
       if (isGameOver) {
@@ -207,7 +208,7 @@ const gameController = () => {
     }
   }
   return { playGame, restartGame, getGameboard };
-}
+})();
 
 
 const displayController = (() => {
@@ -247,5 +248,22 @@ const displayController = (() => {
     cells.forEach(item => item.innerText = '');
   };
 
-})();
+  const fillDisplay = () => {
+    const cells = getCells();
+    const cellsArr = getCellsArr();
+    const iterableCellsArr = Object.entries(cellsArr);
+    const gameboard = gameController.getGameboard();
 
+    for (let i = 0; i < cells.length; i++) {
+      for (let j = 0; j < cells.length; j++) {
+        if (cells[i].getAttribute('value') === iterableCellsArr[j][0]) {
+          const [row, col] = [...iterableCellsArr[j][1]];
+          if (gameboard[row][col] === '') break;
+          cells[i].innerText = gameboard[row][col];
+        }
+      }
+    }
+  }
+
+  return { fillDisplay, clearDisplay }
+})();
