@@ -214,6 +214,8 @@ const gameController = (() => {
   const initGameGui = () => {
     initPlayers();
     getTurn(); 
+    displayController.refreshDisplay();
+    displayController.showCurrentPlayer;
   }
   let turns = 0;
   const playGameGui = (clickedCell) => {
