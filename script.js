@@ -237,7 +237,7 @@ const gameController = (() => {
       displayController.highlightWinner(isGameOver);
       return;
     }
-    if (turns === 8) {
+    if (turns === 9) {
       restartGame();
       displayController.printWinner('Draw!');
       return;
@@ -360,9 +360,14 @@ const displayController = (() => {
 
   const printWinner = (winner) => {
     const currentPlayer = document.querySelector('.current-player');
+    if (winner === 'Draw!') {
+      currentPlayer.innerText = winner;
+      return;
+    }
     currentPlayer.innerText = `${winner.name} is won!`;
   }
 
+  
   return { 
     fillDisplay,
     clearDisplay,
