@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Patrick Hand", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -70,6 +70,25 @@ body {
 .display {
   flex: 5;
 }
+
+/* MENU */
+
+.menu {
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+  color: #D3D3D3;
+}
+
+.menu .button,
+.menu .current-player {
+  border: 2px solid #D3D3D3;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+
 
 /* DISPLAY */
 
