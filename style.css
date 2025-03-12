@@ -126,3 +126,8 @@ body {
 .display .cell:hover {
   background-color: #a5a5a58d;
 }
+
+.cell.winner {
+  background-color: #ECECEC;
+  color: #000000;
+}

@@ -176,6 +176,7 @@ const gameController = (() => {
   const restartGame = () => {
     displayController.refreshDisplay();
     gameboard = createGameboard();
+    displayController.resetCellsColor();
     players = [];
     turns = 0;
   }
@@ -215,7 +216,8 @@ const gameController = (() => {
     initPlayers();
     getTurn(); 
     displayController.refreshDisplay();
-    displayController.showCurrentPlayer;
+    displayController.showCurrentPlayer();
+    displayController.resetCellsColor();
   }
   let turns = 0;
   const playGameGui = (clickedCell) => {
@@ -327,12 +329,29 @@ const displayController = (() => {
     const cells = getCells();
     cells.forEach(cell => {
       if (cell.innerText === winnerMarker) {
-        cell.style.backgroundColor = '#ECECEC';
-        cell.style.color = '#000000';
+        // cell.style.backgroundColor = '#ECECEC';
+        // cell.style.color = '#000000';
+        cell.classList.add('winner');
       }
     })
+  };
+
+  const resetCellsColor = () => {
+    const cells = getCells();
+    cells.forEach(cell => {
+      // cell.style = '';
+      cell.classList.remove('winner');
+    });
   }
-  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer, updateStartButton, getCellsArr, highlightWinner };
+  return { 
+    fillDisplay,
+    clearDisplay,
+    refreshDisplay, 
+    showCurrentPlayer, 
+    updateStartButton, 
+    getCellsArr, 
+    highlightWinner,
+    resetCellsColor, };
 })();
 
 const clickHandler = (() => {
