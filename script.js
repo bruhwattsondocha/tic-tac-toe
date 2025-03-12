@@ -158,7 +158,7 @@ const gameController = (() => {
     // Check anti-diagonal
     const antiDiag = [];
     for (let i = 0; i < rows; i++) {
-        diag.push(gameboard[i][(rows - 1) - i]);
+        antiDiag.push(gameboard[i][(rows - 1) - i]);
     }
     if (areSameMarkers(antiDiag)) {
       winnersMarker = antiDiag[0];
