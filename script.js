@@ -307,7 +307,7 @@ const displayController = (() => {
   const showCurrentPlayer = () => {
     const currentPlayerNode = document.querySelector('.current-player');
     currentPlayerNode.style.display = 'block';
-    currentPlayerNode.innerText = `Current player: ${gameController.getCurrentPlayer().name}`;
+    currentPlayerNode.innerText = `Current player: ${gameController.getCurrentPlayer().name}, marker: ${gameController.getCurrentPlayer().marker}`;
   };
 
   const updateStartButton = () => {
@@ -323,14 +323,18 @@ const displayController = (() => {
 })();
 
 const clickHandler = (() => {
+
   const startGame = (() => {
     const startButton = document.querySelector('.button');
     if (startButton.innerText === 'Start') {
-      startButton.addEventListener('click', gameController.initGameGui);
+      startButton.addEventListener('click', () => {
+        gameController.initGameGui();
+        makeTurnOnClick();
+      });
     }
   })();
   
-  const makeTurnOnClick = (() => {
+  function makeTurnOnClick() {
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => cell.addEventListener('click', function() {
       const cellsArr = displayController.getCellsArr(cells);
@@ -338,6 +342,6 @@ const clickHandler = (() => {
       const cellValueIndex = cellsArr[cellValue];
       gameController.playGameGui(cellValueIndex);
     }));
-  })();
+  };
 
 })();
