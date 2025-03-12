@@ -273,6 +273,7 @@ const displayController = (() => {
 
   const showCurrentPlayer = () => {
     const currentPlayerNode = document.querySelector('.current-player');
+    currentPlayerNode.style.display = 'block';
     currentPlayerNode.innerText = `Current player: ${gameController.getCurrentPlayer().name}`;
     }
   return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer };

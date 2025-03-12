@@ -90,6 +90,9 @@ body {
   text-align: center;
 }
 
+.current-player {
+  display: none;
+}
 
 /* DISPLAY */
 
