@@ -276,6 +276,16 @@ const displayController = (() => {
     const currentPlayerNode = document.querySelector('.current-player');
     currentPlayerNode.style.display = 'block';
     currentPlayerNode.innerText = `Current player: ${gameController.getCurrentPlayer().name}`;
+  };
+
+  const updateStartButton = () => {
+    const startButton = document.querySelector('.button');
+
+    if (startButton.innerText === 'Start') {
+      startButton.innerText = 'Restart';
+    } else {
+      startButton.innerText = 'Start';
     }
-  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer };
+  }  
+  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer, updateStartButton };
 })();
