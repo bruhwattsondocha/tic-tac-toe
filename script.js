@@ -329,8 +329,6 @@ const displayController = (() => {
     const cells = getCells();
     cells.forEach(cell => {
       if (cell.innerText === winnerMarker) {
-        // cell.style.backgroundColor = '#ECECEC';
-        // cell.style.color = '#000000';
         cell.classList.add('winner');
       }
     })
@@ -339,7 +337,6 @@ const displayController = (() => {
   const resetCellsColor = () => {
     const cells = getCells();
     cells.forEach(cell => {
-      // cell.style = '';
       cell.classList.remove('winner');
     });
   }
