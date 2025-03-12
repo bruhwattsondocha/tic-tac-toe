@@ -231,6 +231,7 @@ const gameController = (() => {
     if (isGameOver) {
       restartGame();
       alert(`${isGameOver.name} wins!`);
+      displayController.highlightWinner(isGameOver.marker);
       return;
     }
     if (turns === 8) {
@@ -321,7 +322,17 @@ const displayController = (() => {
       startButton.innerText = 'Start';
     }
   }  
-  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer, updateStartButton, getCellsArr };
+
+  const highlightWinner = (winnerMarker) => {
+    const cells = getCells();
+    cells.forEach(cell => {
+      if (cell.innerText === winnerMarker) {
+        cell.style.backgroundColor = '#ECECEC';
+        cell.style.color = '#000000';
+      }
+    })
+  }
+  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer, updateStartButton, getCellsArr, highlightWinner };
 })();
 
 const clickHandler = (() => {
