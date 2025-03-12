@@ -116,4 +116,10 @@ body {
   color: white;
   text-align: center;
   font-size: 24px;
+  cursor: pointer;
+  transition: .1s;
+}
+
+.display .cell:hover {
+  background-color: #a5a5a58d;
 }

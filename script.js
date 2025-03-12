@@ -192,7 +192,7 @@ const gameController = (() => {
       const [row, col] = [...currentPlayerInput];
       makeTurn(currentPlayer, row, col);
       showGameboard();
-      displayController.fillDisplay();
+      displayController.refreshDisplay();
       const isGameOver = scanAndGetWinner();
 
       if (isGameOver) {
@@ -264,6 +264,10 @@ const displayController = (() => {
       }
     }
   }
-
-  return { fillDisplay, clearDisplay }
+ 
+  const refreshDisplay = () => {
+    clearDisplay();
+    fillDisplay();
+  }
+  return { fillDisplay, clearDisplay, refreshDisplay }
 })();
