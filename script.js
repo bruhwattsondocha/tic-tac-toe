@@ -329,7 +329,7 @@ const displayController = (() => {
   const highlightWinner = (winnerMarker) => {
     const cells = getCells();
     cells.forEach(cell => {
-      if (cell.innerText === winnerMarker) {
+      if (cell.innerText === winnerMarker.marker) {
         cell.classList.add('winner');
       }
     })
