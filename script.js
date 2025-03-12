@@ -184,6 +184,7 @@ const gameController = (() => {
     for (let turns = 0; turns < 9; turns++) {
       const currentPlayer = getCurrentPlayer();
       const oppositePlayer = getOppositePlayer();
+      displayController.showCurrentPlayer();
       const currentPlayerInput = getUserInput(currentPlayer, oppositePlayer);
       if (currentPlayerInput === `Cancel`) {
         restartGame();
@@ -207,7 +208,7 @@ const gameController = (() => {
       changeTurns();
     }
   }
-  return { playGame, restartGame, getGameboard };
+  return { playGame, restartGame, getGameboard, getCurrentPlayer };
 })();
 
 
@@ -269,5 +270,10 @@ const displayController = (() => {
     clearDisplay();
     fillDisplay();
   }
-  return { fillDisplay, clearDisplay, refreshDisplay }
+
+  const showCurrentPlayer = () => {
+    const currentPlayerNode = document.querySelector('.current-player');
+    currentPlayerNode.innerText = `Current player: ${gameController.getCurrentPlayer().name}`;
+    }
+  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer };
 })();
