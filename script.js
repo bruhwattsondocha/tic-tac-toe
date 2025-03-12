@@ -49,7 +49,7 @@ const gameController = (() => {
   }); 
 
   const makeTurn = (player, row, col) => {
-    gameboard[row - 1][col - 1] = player.marker;
+    gameboard[row][col] = player.marker;
   };
   
   const changeTurns = () => {
@@ -176,6 +176,8 @@ const gameController = (() => {
   const restartGame = () => {
     gameboard = createGameboard();
     players = [];
+    displayController.refreshDisplay();
+    turns = 0;
   }
   
   const playGame = () => {
@@ -208,7 +210,37 @@ const gameController = (() => {
       changeTurns();
     }
   }
-  return { playGame, restartGame, getGameboard, getCurrentPlayer };
+
+  const initGameGui = () => {
+    initPlayers();
+    getTurn(); 
+  }
+  let turns = 0;
+  const playGameGui = (clickedCell) => {
+    const currentPlayer = getCurrentPlayer();
+    const oppositePlayer = getOppositePlayer();
+    displayController.showCurrentPlayer();
+
+    const [row, col] = [...clickedCell];
+    makeTurn(currentPlayer, row, col);
+    displayController.refreshDisplay();
+    const isGameOver = scanAndGetWinner();
+    
+    turns++;
+    if (isGameOver) {
+      restartGame();
+      alert(`${isGameOver.name} wins!`);
+      return;
+    }
+    if (turns === 8) {
+      restartGame();
+      alert(`Draw!`);
+      return;
+    }
+
+    changeTurns();
+  }
+  return { playGame, restartGame, getGameboard, getCurrentPlayer, initGameGui, playGameGui };
 })();
 
 
@@ -287,15 +319,25 @@ const displayController = (() => {
       startButton.innerText = 'Start';
     }
   }  
-  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer, updateStartButton };
+  return { fillDisplay, clearDisplay, refreshDisplay, showCurrentPlayer, updateStartButton, getCellsArr };
 })();
 
 const clickHandler = (() => {
   const startGame = (() => {
     const startButton = document.querySelector('.button');
     if (startButton.innerText === 'Start') {
-      startButton.addEventListener('click', gameController.playGame);
+      startButton.addEventListener('click', gameController.initGameGui);
     }
   })();
   
+  const makeTurnOnClick = (() => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => cell.addEventListener('click', function() {
+      const cellsArr = displayController.getCellsArr(cells);
+      const cellValue = cell.getAttribute('value');
+      const cellValueIndex = cellsArr[cellValue];
+      gameController.playGameGui(cellValueIndex);
+    }));
+  })();
+
 })();
