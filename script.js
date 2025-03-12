@@ -218,6 +218,7 @@ const gameController = (() => {
     displayController.refreshDisplay();
     displayController.showCurrentPlayer();
     displayController.resetCellsColor();
+    displayController.allowOnHover();
   }
   let turns = 0;
   const playGameGui = (clickedCell) => {
@@ -244,7 +245,7 @@ const gameController = (() => {
 
     changeTurns();
     displayController.showCurrentPlayer();
-  }
+  }  
   return { playGame, restartGame, getGameboard, getCurrentPlayer, initGameGui, playGameGui };
 })();
 
@@ -340,6 +341,23 @@ const displayController = (() => {
       cell.classList.remove('winner');
     });
   }
+  
+  const prohibitOnHover = () => {
+    const cells = getCells();
+    cells.forEach(cell => {
+      cell.style.backgroundColor = '#1D1D1D';
+      cell.style.cursor = 'default';
+    })
+  };
+  prohibitOnHover(); // Before start
+
+  const allowOnHover = () => {
+    const cells = getCells();
+    cells.forEach(cell => {
+      cell.style = '';
+    });
+  };
+
   return { 
     fillDisplay,
     clearDisplay,
@@ -348,8 +366,12 @@ const displayController = (() => {
     updateStartButton, 
     getCellsArr, 
     highlightWinner,
-    resetCellsColor, };
+    resetCellsColor, 
+    allowOnHover,
+    prohibitOnHover,
+  };
 })();
+
 
 const clickHandler = (() => {
 
