@@ -24,6 +24,10 @@ const gameController = () => {
   };
   let players = [];
 
+  const getGameboard = () => {
+    return gameboard.slice();
+  }
+  
   const initPlayers = (() => {
     let playerOneName = prompt('Player one, enter your name') || 'Player One';
     let playerTwoName = prompt('Player two, enter your name') || 'Player Two';
@@ -202,7 +206,7 @@ const gameController = () => {
       changeTurns();
     }
   }
-  return { playGame, restartGame };
+  return { playGame, restartGame, getGameboard };
 }
 
 
