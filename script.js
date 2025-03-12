@@ -269,6 +269,7 @@ const displayController = (() => {
   const refreshDisplay = () => {
     clearDisplay();
     fillDisplay();
+    showCurrentPlayer();
   }
 
   const showCurrentPlayer = () => {
