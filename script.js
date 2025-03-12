@@ -241,5 +241,11 @@ const displayController = (() => {
     }) 
     return cellMatrix;
   }
+
+  const clearDisplay = () => {
+    const cells = getCells();
+    cells.forEach(item => item.innerText = '');
+  };
+
 })();
 
