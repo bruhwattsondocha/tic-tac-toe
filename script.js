@@ -204,3 +204,38 @@ const gameController = () => {
   }
   return { playGame, restartGame };
 }
+
+
+const displayController = (() => {
+  const getCells = () => {
+    return document.querySelectorAll('.cell');
+  }
+  
+  const getCellsArr = () => {
+    const cells = getCells();
+    const cellMatrix = {};
+    cells.forEach(cell => {
+      const cellValue = cell.getAttribute('value');
+
+      switch(cellValue) {
+        case '1': 
+        case '2':
+        case '3':
+          cellMatrix[cellValue] = [0, cellValue - 1];
+          break;
+        case '4':
+        case '5':
+        case '6':
+          cellMatrix[cellValue] = [1, cellValue - 4];
+          break;
+        case '7':
+        case '8':
+        case '9':
+          cellMatrix[cellValue] = [2, cellValue - 7];
+          break;
+      }
+    }) 
+    return cellMatrix;
+  }
+})();
+
