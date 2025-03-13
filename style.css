@@ -113,16 +113,19 @@ body {
 }
 
 .display .cell {
-  border: 2px solid #D3D3D3;
-  background-color: #1D1D1D;
-  border-radius: 30px;
   list-style: none;
-
+  border: 2px solid #D3D3D3;
+  border-radius: 30px;
+  background-color: #1D1D1D;
   color: white;
-  text-align: center;
-  font-size: 7rem;
+  font-size: 9rem;
   cursor: pointer;
+  
   transition: .1s;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .display .cell:hover {
