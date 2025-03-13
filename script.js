@@ -431,7 +431,7 @@ const displayController = (() => {
       currentPlayer.innerText = winner;
       return;
     }
-    currentPlayer.innerText = `${winner.name} is won!`;
+    currentPlayer.innerText = `${winner.name} is the winner!`;
   };
 
   
