@@ -239,11 +239,21 @@ const gameController = (() => {
   }
   let turns = 0;
 
+  const isCellFilled = (cell) => {
+    const [row, col] = [...cell];
+    if (gameboard[row][col] !== '') {
+      return true;
+    }
+  };
+
   const playGameGui = (clickedCell) => {
     const currentPlayer = getCurrentPlayer();
     const oppositePlayer = getOppositePlayer();
-
     const [row, col] = [...clickedCell];
+    if (isCellFilled(clickedCell)) {
+      return
+    };
+    
     makeTurn(currentPlayer, row, col);
     displayController.refreshDisplay();
     const isGameOver = scanAndGetWinner();
