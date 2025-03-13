@@ -420,6 +420,7 @@ const clickHandler = (() => {
     if (startButton.innerText === 'Start') {
       startButton.addEventListener('click', () => {
         gameController.initGameGui();
+        displayController.updateStartButton();
         makeTurnOnClick();
       });
     }
