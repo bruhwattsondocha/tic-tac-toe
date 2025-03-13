@@ -252,6 +252,7 @@ const gameController = (() => {
     if (isGameOver) {
       restartGame();
       displayController.printWinner(isGameOver);
+      displayController.dimAllCells();
       displayController.highlightWinner(isGameOver);
       displayController.showStartButton();
       return;
@@ -354,6 +355,13 @@ const displayController = (() => {
     startButton.style.display = '';
   };
 
+  const dimAllCells = () => {
+    const cells = getCells();
+    cells.forEach(cell => {
+      cell.classList.add('dimmed');
+    })
+  };
+
   const highlightWinner = (winner) => {
     const cells = getCells();
     const cellsArr = getCellsArr();
@@ -379,6 +387,7 @@ const displayController = (() => {
     const cells = getCells();
     cells.forEach(cell => {
       cell.classList.remove('winner');
+      cell.classList.remove('dimmed');
     });
   };
   
@@ -422,6 +431,7 @@ const displayController = (() => {
     printWinner,
     hideStartButton,
     showStartButton,
+    dimAllCells,
   };
 })();
 
