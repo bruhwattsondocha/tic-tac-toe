@@ -341,20 +341,18 @@ const displayController = (() => {
 
     if (startButton.innerText === 'Start') {
       startButton.innerText = 'Restart';
-    } else {
-      startButton.innerText = 'Start';
-    }
-  }  
+    } 
+  };
 
   const hideStartButton = () => {
     const startButton = document.querySelector('.button');
     startButton.style.display = 'none';
-  }  
+  }; 
 
   const showStartButton = () => {
     const startButton = document.querySelector('.button'); 
     startButton.style.display = '';
-  }
+  };
 
   const highlightWinner = (winner) => {
     const cells = getCells();
@@ -369,7 +367,7 @@ const displayController = (() => {
           cellsToHighlight.push(i);
         }
       }
-    }
+    };
   
     for (let i = 0; i < cellsToHighlight.length; i++) {
       cells[cellsToHighlight[i]].style.backgroundColor = '#ECECEC';
@@ -382,7 +380,7 @@ const displayController = (() => {
     cells.forEach(cell => {
       cell.classList.remove('winner');
     });
-  }
+  };
   
   const prohibitOnHover = () => {
     const cells = getCells();
@@ -407,7 +405,7 @@ const displayController = (() => {
       return;
     }
     currentPlayer.innerText = `${winner.name} is won!`;
-  }
+  };
 
   
   return { 
