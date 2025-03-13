@@ -213,11 +213,11 @@ const gameController = (() => {
       makeTurn(currentPlayer, row, col);
       showGameboard();
       displayController.refreshDisplay();
-      const isGameOver = scanAndGetWinner();
+      const winner = scanAndGetWinner();
 
-      if (isGameOver) {
+      if (winner) {
         restartGame();
-        return `${isGameOver.name} wins!`;
+        return `${winner.name} wins!`;
       }
       if (turns === 8) {
         restartGame();
