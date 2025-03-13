@@ -235,6 +235,7 @@ const gameController = (() => {
     displayController.showCurrentPlayer();
     displayController.resetCellsColor();
     displayController.allowOnHover();
+    displayController.hideStartButton();    
   }
   let turns = 0;
 
@@ -252,11 +253,13 @@ const gameController = (() => {
       restartGame();
       displayController.printWinner(isGameOver);
       displayController.highlightWinner(isGameOver);
+      displayController.showStartButton();
       return;
     }
     if (turns === 9) {
       restartGame();
       displayController.printWinner('Draw!');
+      displayController.showStartButton();
       return;
     }
 
@@ -343,6 +346,16 @@ const displayController = (() => {
     }
   }  
 
+  const hideStartButton = () => {
+    const startButton = document.querySelector('.button');
+    startButton.style.display = 'none';
+  }  
+
+  const showStartButton = () => {
+    const startButton = document.querySelector('.button'); 
+    startButton.style.display = '';
+  }
+
   const highlightWinner = (winner) => {
     const cells = getCells();
     const cellsArr = getCellsArr();
@@ -409,6 +422,8 @@ const displayController = (() => {
     allowOnHover,
     prohibitOnHover,
     printWinner,
+    hideStartButton,
+    showStartButton,
   };
 })();
 
@@ -423,7 +438,7 @@ const clickHandler = (() => {
         displayController.updateStartButton();
         makeTurnOnClick();
       });
-    }
+    } 
   })();
   
   function makeTurnOnClick() {
