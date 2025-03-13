@@ -82,6 +82,9 @@ body {
   padding: 0.3rem 0.6rem;
   border-radius: 12px;
   font-size: 20px;
+}
+
+.menu .play-restart {
   cursor: pointer;
 }
 
