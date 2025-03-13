@@ -270,6 +270,7 @@ const gameController = (() => {
     if (turns === 9) {
       restartGame();
       displayController.printWinner('Draw!');
+      displayController.highlightWinner();
       displayController.showStartButton();
       return;
     }
@@ -374,6 +375,13 @@ const displayController = (() => {
 
   const highlightWinner = (winner) => {
     const cells = getCells();
+    if (!winner) {
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].style.backgroundColor = '#ECECEC';
+        cells[i].style.color = '#000000';
+      }  
+      return;
+    }
     const cellsArr = getCellsArr();
     const iterableCellsArr = Object.values(cellsArr);
     const winningComboIndexes = winner.winningComboIndexes;
