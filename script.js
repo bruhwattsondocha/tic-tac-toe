@@ -115,22 +115,26 @@ const gameController = (() => {
     const rows = gameboard.length;
     const cols = gameboard[0].length;
     let winnersMarker; 
+    let winningComboIndexes = [];
     const areSameMarkers = (arr) => {
       const set =  new Set(arr);
       if (set.has('')) return false;
       if (set.size === 1) return true;
     };
-
+    const tempWinCombo = [];
     // Check horizontal (rows)
     const row = [];
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
         row.push(gameboard[i][j]);
+        tempWinCombo.push([i, j]);
       }
       if (areSameMarkers(row)) {
         winnersMarker = row[0]; 
+        winningComboIndexes = tempWinCombo.slice();
       }
       row.length = 0;
+      tempWinCombo.length = 0;
     }
 
     // Check vertical (cols)
@@ -138,37 +142,49 @@ const gameController = (() => {
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
         col.push(gameboard[j][i]);
+        tempWinCombo.push([j, i]);
       }
       if (areSameMarkers(col)) {
         winnersMarker = col[0];
+        winningComboIndexes = tempWinCombo.slice();
       }
       col.length = 0;
+      tempWinCombo.length = 0;
     }
 
     // Check diagonal 
     const diag = [];
     for (let i = 0; i < rows; i++) {
         diag.push(gameboard[i][i])
+        tempWinCombo.push([i, i]);
       }
     if (areSameMarkers(diag)) {
       winnersMarker = diag[0];
+      winningComboIndexes = tempWinCombo.slice();
     }
     diag.length = 0;
+    tempWinCombo.length = 0;
 
     // Check anti-diagonal
     const antiDiag = [];
     for (let i = 0; i < rows; i++) {
         antiDiag.push(gameboard[i][(rows - 1) - i]);
+        tempWinCombo.push([i, (rows - 1 - i)]);
     }
     if (areSameMarkers(antiDiag)) {
       winnersMarker = antiDiag[0];
+      winningComboIndexes = tempWinCombo.slice();
     }
     antiDiag.length = 0   
+    tempWinCombo.length = 0;
 
     // Loop through players and return winning player
     for (let i = 0; i < players.length; i++) {
       if (players[i].marker === winnersMarker) {
-        return players[i];
+        const finalResult = structuredClone(players[i]);
+        finalResult['winningComboIndexes'] = winningComboIndexes;
+
+        return finalResult;
       }
     }
   }
@@ -221,6 +237,7 @@ const gameController = (() => {
     displayController.allowOnHover();
   }
   let turns = 0;
+
   const playGameGui = (clickedCell) => {
     const currentPlayer = getCurrentPlayer();
     const oppositePlayer = getOppositePlayer();
@@ -326,13 +343,25 @@ const displayController = (() => {
     }
   }  
 
-  const highlightWinner = (winnerMarker) => {
+  const highlightWinner = (winner) => {
     const cells = getCells();
-    cells.forEach(cell => {
-      if (cell.innerText === winnerMarker.marker) {
-        cell.classList.add('winner');
+    const cellsArr = getCellsArr();
+    const iterableCellsArr = Object.values(cellsArr);
+    const winningComboIndexes = winner.winningComboIndexes;
+    const cellsToHighlight = [];
+
+    for (let i = 0; i < cells.length; i++) {
+      for (let j = 0; j < winningComboIndexes.length; j++) {
+        if (iterableCellsArr[i].toString() == winningComboIndexes[j].toString()) {
+          cellsToHighlight.push(i);
+        }
       }
-    })
+    }
+  
+    for (let i = 0; i < cellsToHighlight.length; i++) {
+      cells[cellsToHighlight[i]].style.backgroundColor = '#ECECEC';
+      cells[cellsToHighlight[i]].style.color = '#000000';
+    }
   };
 
   const resetCellsColor = () => {
